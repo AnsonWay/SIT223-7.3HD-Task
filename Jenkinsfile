@@ -23,6 +23,10 @@ pipeline {
         }
         stage('Build') {
             steps {
+                sh 'echo "--- PRINTING JENKINSFILE CONTENTS ---"'
+                sh 'cat Jenkinsfile'
+                sh 'echo "--- END OF JENKINSFILE CONTENTS ---"'
+
                 script {
                     echo "--- Building the application ---"
                     sh 'mvn clean package'
