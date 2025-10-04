@@ -2,11 +2,11 @@ pipeline {
     agent {
         docker {
             image 'maven:3.8.4-openjdk-17'
-            args '-v /var/run/docker.sock:/var/run/docker.sock --network host'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
     environment {
-        SONARQUBE_URL = 'http://localhost:9000'
+        SONARQUBE_URL = 'http://sonarqube:9000'
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') 
         IMAGE_NAME = "ansonway/sit223-petclinic" 
         STAGING_PORT = 8082
