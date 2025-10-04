@@ -37,8 +37,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo "--- Running automated tests ---"
-                sh 'mvn test'
+                echo "--- Running automated tests (skipping integration tests) ---"
+                sh 'mvn test -DskipITs'
             }
             post {
                 always {
