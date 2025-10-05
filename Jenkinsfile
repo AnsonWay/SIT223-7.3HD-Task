@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'maven:3.8.4-openjdk-17'
-            args '-v /var/run/docker.sock:/var/run/docker.sock --network petclinic-network'
+            args '-v /var/run/docker.sock:/var/run/docker.sock --network devops_devops-net'
         }
     }
     environment {
