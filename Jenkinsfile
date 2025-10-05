@@ -9,6 +9,7 @@ pipeline {
         SONARQUBE_URL = 'http://sonarqube:9000'
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') 
         IMAGE_NAME = "ansonway/sit223-petclinic" 
+        NVD_API_KEY = '5F0FE50E-D7A1-F011-8360-129478FCB64D'
         STAGING_PORT = 8082
         PROD_PORT = 8081
     }
@@ -70,7 +71,7 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo "--- Performing Security Scans ---"
-                sh 'mvn org.owasp:dependency-check-maven:8.4.0:check'
+                sh 'mvn clean verify'
 
                 script {
                     def customImage = docker.build(IMAGE_NAME, ".")

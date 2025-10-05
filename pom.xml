@@ -188,6 +188,24 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <version>8.4.0</version>
+        <configuration>
+          <nvdApiKey>5F0FE50E-D7A1-F011-8360-129478FCB64D</nvdApiKey>
+          <failBuildOnCVSS>7</failBuildOnCVSS>
+          <dataDirectory>${project.build.directory}/dependency-check-data</dataDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>verify</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven-checkstyle.version}</version>
