@@ -1,21 +1,38 @@
+version: '3.8'
+
 services:
-  mysql:
-    image: mysql:9.2
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
     ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=
-      - MYSQL_ALLOW_EMPTY_PASSWORD=true
-      - MYSQL_USER=petclinic
-      - MYSQL_PASSWORD=petclinic
-      - MYSQL_DATABASE=petclinic
+      - "8080:8080"
+      - "50000:50000"
     volumes:
-      - "./conf.d:/etc/mysql/conf.d:ro"
-  postgres:
-    image: postgres:17.5
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - petclinic-network
+
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
     ports:
-      - "5432:5432"
+      - "9000:9000"
     environment:
-      - POSTGRES_PASSWORD=petclinic
-      - POSTGRES_USER=petclinic
-      - POSTGRES_DB=petclinic
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    networks:
+      - petclinic-network
+
+volumes:
+  jenkins_home:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+
+networks:
+  petclinic-network:
+    driver: bridge
