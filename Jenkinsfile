@@ -55,7 +55,7 @@ pipeline {
                 script {
                     def scannerHome = tool 'SonarQubeScanner' 
                     withSonarQubeEnv('MySonarQube') { 
-                        sh "${scannerHome}/bin/sonar-scanner"
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin"
                     }
                 }
             }
